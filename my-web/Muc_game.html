@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game online - Trò chơi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-left">
+                <a href="Trang_chu.html" style="text-decoration: none; color: inherit;">
+                    <h1 class="logo">Game online</h1>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="dropbtn">Thể Loại</a>
+                    <div class="dropdown-content">
+                        <a href="hanh-dong.html">Hành Động</a>
+                        <a href="hanh-dong-phieu-luu.html">Hành Động - Phiêu Lưu</a>
+                        <a href="ban-sung-goc-nhin-thu-nhat.html">Bắn Súng FPS</a>
+                        <a href="ban-sung-goc-nhin-thu-ba.html">Bắn Súng TPS</a>
+                        <a href="nhap-vai.html">Nhập Vai (RPG)</a>
+                        <a href="nhap-vai-truc-tuyen-nhieu-nguoi.html">Nhập Vai (MMORPG)</a>
+                        <a href="chien-thuat.html">Chiến Thuật</a>
+                        <a href="the-thao-dua-xe.html">Thể Thao & Đua Xe</a>
+                        <a href="mo-phong.html">Mô Phỏng</a>
+                        <a href="mo-phong-cuoc-song.html">Mô Phỏng Cuộc Sống</a>
+                        <a href="giai-do.html">Giải Đố</a>
+                        <a href="doi-khang.html">Đối Kháng</a>
+                        <a href="battle-royale.html">Battle Royale</a>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="Trang_chu.html">Trang Chủ</a></li>
+                <li class="nav-item"><a href="Trang_chu.html#about">Giới Thiệu</a></li>
+                <li class="nav-item"><a href="Trang_chu.html#contact">Liên Hệ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Trang Trò Chơi</h2>
+            <p></p>
+            <a href="Trang_chu.html" class="btn">Quay lại trang chủ</a>
+        </div>
+    </section>
+
+    <section class="video-section">
+        <div class="container">
+            <h2>Giới thiệu</h2>
+            <div class="video-wrapper">
+                <iframe
+                    class="yt-embed"
+                    src="https://www.youtube.com/embed/ladCeM1wZqc?start=4&autoplay=1&mute=1&playsinline=1&loop=1&playlist=ladCeM1wZqc"
+                    title="YouTube video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                ></iframe>
+            </div>
+            <p class="muted">Hãy cùng chơi game online nào.</p>
+        </div>
+    </section>
+
+    <section id="danh-muc" class="categories">
+        <div class="container">
+            <h2>Danh Mục</h2>
+            <nav class="category-tabs" aria-label="Bộ lọc game">
+                <button class="tab active" data-filter="all">Tất cả</button>
+                <button class="tab" data-filter="hay" onclick="window.location.href='game-hay.html';">Game hay</button>
+                <button class="tab" data-filter="hot" onclick="window.location.href='game-hot.html';">Game hot</button>
+                <button class="tab" data-filter="moi" onclick="window.location.href='game-moi.html';">Game mới</button>
+            </nav>
+            <div class="game-grid">
+                <article class="game-card" data-tags="hay hot">
+                    <a href="flappy-bird.html" style="text-decoration: none; color: inherit;">
+                        <div class="thumb" aria-hidden="true"></div>
+                        <h3>Flappy Bird</h3>
+                        <p class="muted">Bay vượt chướng ngại vật kinh điển.</p>
+                        <div class="badges">
+                            <span class="badge badge-hay">Hay</span>
+                            <span class="badge badge-hot">Hot</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="game-card" data-tags="hay hot">
+                    <a href="space-runner.html" style="text-decoration: none; color: inherit;">
+                        <div class="thumb" aria-hidden="true"></div>
+                        <h3>Space Runner</h3>
+                        <p class="muted">Chạy vô tận trong không gian.</p>
+                        <div class="badges">
+                            <span class="badge badge-hay">Hay</span>
+                            <span class="badge badge-hot">Hot</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="game-card" data-tags="hay moi">
+                    <a href="snake.html" style="text-decoration: none; color: inherit;">
+                        <div class="thumb" aria-hidden="true"></div>
+                        <h3>Snake Game</h3>
+                        <p class="muted">Rắn săn mồi kinh điển.</p>
+                        <div class="badges">
+                            <span class="badge badge-hay">Hay</span>
+                            <span class="badge badge-moi">Mới</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="game-card" data-tags="moi">
+                    <a href="Brick_breaker.html" style="text-decoration: none; color: inherit;">
+                        <div class="thumb" aria-hidden="true"></div>
+                        <h3>Brick Breaker</h3>
+                        <p class="muted">Game phá bóng.</p>
+                        <div class="badges">
+                            <span class="badge badge-moi">Mới</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="game-card" data-tags="hay">
+                    <a href="brain-twist.html" style="text-decoration: none; color: inherit;">
+                        <div class="thumb" aria-hidden="true"></div>
+                        <h3>Brain Twist</h3>
+                        <p class="muted">Câu đố logic thử thách.</p>
+                        <div class="badges">
+                            <span class="badge badge-hay">Hay</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="game-card" data-tags="hot moi">
+                    <a href="city-racer.html" style="text-decoration: none; color: inherit;">
+                        <div class="thumb" aria-hidden="true"></div>
+                        <h3>City Racer</h3>
+                        <p class="muted">Đua xe đường phố kịch tính.</p>
+                        <div class="badges">
+                            <span class="badge badge-hot">Hot</span>
+                            <span class="badge badge-moi">Mới</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="game-card" data-tags="hay moi">
+                    <a href="Math-kids-game.html" style="text-decoration: none; color: inherit;">
+                        <div class="thumb" aria-hidden="true"></div>
+                        <h3>Math Kids Game</h3>
+                        <p class="muted">Toán học vui cho trẻ em.</p>
+                        <div class="badges">
+                            <span class="badge badge-hay">Hay</span>
+                            <span class="badge badge-moi">Mới</span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="game-container">
+                <div class="game-info">
+                    <strong>Demo Trò chơi</strong>
+                    <span class="muted">Đang phát triển</span>
+                </div>
+                <canvas id="game" width="480" height="320"></canvas>
+                <p class="muted">Khu vực trò chơi minh họa. Bạn có thể thêm logic bằng JavaScript sau.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MyWeb. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

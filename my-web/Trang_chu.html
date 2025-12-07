@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="Trang_chu.html" style="text-decoration: none; color: inherit;"><h1 class="logo" >Game online</h1></a>
+            <ul class="nav-links">
+                <li><a href="Muc_game.html#danh-muc">Danh Mục</a></li>
+                <li><a href="#home">Trang Chủ</a></li>
+                <li><a href="#about">Giới Thiệu</a></li>
+                    
+              
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Chào Mừng!</h2>
+            <p style="color: red;">Đây là một web game online, nên bạn có thể chơi tất cả các game ở đây mà không cần tải về.</p>
+            <a href="Muc_game.html" class="btn">Mục game</a>
+        </div>
+    </section>
+    <section class="video-section">
+        <div class="container">
+            <video class="video-player" controls autoplay muted loop>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Trình duyệt của bạn không hỗ trợ thẻ video HTML5.
+            </video>
+        </div>
+    </section>
+
+    
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Giới Thiệu</h2>
+            <p>đây là một ví dụ web đơn giản để học tập. Bạn có thể thêm nhiều tính năng hơn theo ý của mình.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Liên Hệ</h2>
+            <form onsubmit="handleSubmit(event)">
+                <label for="contact-name" class="sr-only">Tên của bạn</label>
+                <input id="contact-name" name="name" type="text" placeholder="Tên của bạn" required>
+
+                <label for="contact-email" class="sr-only">Email</label>
+                <input id="contact-email" name="email" type="email" placeholder="Email" required>
+
+                <label for="contact-message" class="sr-only">Tin nhắn</label>
+                <textarea id="contact-message" name="message" placeholder="Tin nhắn" rows="5" required></textarea>
+
+                <button type="submit" class="btn">Gửi</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MyWeb. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

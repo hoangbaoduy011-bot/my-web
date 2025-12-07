@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.https": {
+        "enable": true,
+        "cert": "${workspaceFolder}/cert.pem",
+        "key": "${workspaceFolder}/key.pem"
+    }
+}

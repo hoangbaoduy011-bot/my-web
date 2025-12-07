@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Toán Em Bé — Web Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root{
+      --bg:#f7fbff; --card:#ffffff; --primary:#4f46e5; --accent:#06b6d4; --good:#10b981; --bad:#ef4444;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#eaf6ff);min-height:100vh}
+    .page{display:flex;align-items:center;justify-content:center;padding:20px}
+    .game{width:100%;max-width:760px}
+    .card{background:var(--card);border-radius:16px;box-shadow:0 8px 30px rgba(31,41,55,0.08);padding:20px}
+    header{display:flex;align-items:center;gap:12px}
+    .mini-logo{width:64px;height:64px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:28px}
+    .navbar .logo{font-size:2.4rem}
+    h1{margin:0;font-size:20px}
+    .start-screen,.play-area{margin-top:16px}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    select,input[type=number]{padding:10px;border-radius:8px;border:1px solid #e6eef6}
+    button{background:var(--primary);color:white;border:0;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+    button.secondary{background:transparent;color:var(--primary);border:1px solid rgba(79,70,229,0.12)}
+    .panel{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+    .question{font-size:34px;font-weight:700;color:#0f172a;text-align:center;padding:22px 12px;background:linear-gradient(180deg,#fff,#f8fbff);border-radius:12px}
+    .answers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    .answer-btn{padding:14px;border-radius:12px;border:2px solid #eaf3ff;background:white;font-size:18px;cursor:pointer;color:#0f172a}
+    .meta{display:flex;gap:12px;align-items:center}
+    .chip{background:#f1f8ff;padding:8px 12px;border-radius:999px;font-weight:700}
+    .feedback{height:42px;display:flex;align-items:center;justify-content:center;margin-top:12px;font-weight:700}
+    .footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .small{font-size:13px;color:#6b7280}
+    .hidden{display:none}
+    .quick-qs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .chip-btn{background:#f1f8ff;color:#0f172a;border:1px solid #e6eef6;border-radius:999px;padding:6px 12px;font-weight:700;cursor:pointer}
+    .chip-btn.active{background:var(--accent);color:white;border-color:transparent}
+    @media(max-width:520px){.question{font-size:26px}}  
+
+    .firework-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .firework {
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          background-color: #ffeb3b;
+          border-radius: 50%;
+          opacity: 0;
+          animation: firework-burst 0.8s ease-out forwards;
+        }
+
+    @keyframes firework-burst {
+      0% {
+        transform: scale(0) translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5) translateY(-50px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="firework-container" id="fireworkContainer"></div>
+  <div class="game-container">
+    <div class="game-header">
+      <div class="container">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-left">
+                    <a href="Trang_chu.html" style="text-decoration: none; color: inherit;">
+                        <h1 class="logo">Game online</h1>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">Thể Loại</a>
+                        <div class="dropdown-content">
+                            <a href="hanh-dong.html">Hành Động</a>
+                            <a href="hanh-dong-phieu-luu.html">Hành Động - Phiêu Lưu</a>
+                            <a href="ban-sung-goc-nhin-thu-nhat.html">Bắn Súng FPS</a>
+                            <a href="ban-sung-goc-nhin-thu-ba.html">Bắn Súng TPS</a>
+                            <a href="nhap-vai.html">Nhập Vai (RPG)</a>
+                            <a href="nhap-vai-truc-tuyen-nhieu-nguoi.html">Nhập Vai (MMORPG)</a>
+                            <a href="chien-thuat.html">Chiến Thuật</a>
+                            <a href="the-thao-dua-xe.html">Thể Thao & Đua Xe</a>
+                            <a href="mo-phong.html">Mô Phỏng</a>
+                            <a href="mo-phong-cuoc-song.html">Mô Phỏng Cuộc Sống</a>
+                            <a href="giai-do.html">Giải Đố</a>
+                            <a href="doi-khang.html">Đối Kháng</a>
+                            <a href="battle-royale.html">Battle Royale</a>
+                        </div>
+                    </div>
+                    <ul class="nav-links">
+                        <li class="nav-item"><a href="Trang_chu.html">Trang Chủ</a></li>
+                        <li class="nav-item"><a href="Trang_chu.html#about">Giới Thiệu</a></li>
+                        <li class="nav-item"><a href="Trang_chu.html#contact">Liên Hệ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="page">
+  <div class="game card" role="main">
+    <header>
+      <div class="mini-logo">bé</div>
+      <div>
+        <h1>Toán Em Bé — Học mà chơi</h1>
+        <div class="small">Tính nhanh: cộng, trừ, nhân, chia — dành cho bé</div>
+      </div>
+    </header>
+
+    <section class="start-screen">
+      <div style="display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap">
+        <label class="small">Phép toán:
+          <select id="opSelect">
+            <option value="+">Cộng</option>
+            <option value="-">Trừ</option>
+            <option value="*">Nhân</option>
+            <option value="/">Chia</option>
+            <option value="mix">Ngẫu nhiên</option>
+          </select>
+        </label>
+
+        <label class="small">Mức độ:
+          <select id="levelSelect">
+            <option value="easy">Dễ (0–10)</option>
+            <option value="medium">Trung bình (0–20)</option>
+            <option value="hard">Khó (0–50)</option>
+          </select>
+        </label>
+
+        <label class="small">Số câu:
+          <input id="numQ" type="number" value="10" min="5" max="50" style="width:80px" />
+        </label>
+
+        <div class="quick-qs" aria-label="Chọn nhanh số câu">
+          <button type="button" class="chip-btn" data-qs="5">5</button>
+          <button type="button" class="chip-btn" data-qs="10">10</button>
+          <button type="button" class="chip-btn" data-qs="15">15</button>
+          <button type="button" class="chip-btn" data-qs="20">20</button>
+          <button type="button" class="chip-btn" data-qs="30">30</button>
+          <button type="button" class="chip-btn" data-qs="50">50</button>
+        </div>
+
+        <button id="startBtn">Bắt đầu</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+        <button id="homeBtn" class="secondary" title="Quay lại danh mục">Quay lại danh sách game</button>
+      </div>
+      <div class="small" style="margin-top:8px">Nhấn "Bắt đầu" để hiện câu hỏi và các đáp án.</div>
+
+      <div class="panel">
+        <div class="meta">
+          <div class="chip">Điểm: <span id="score">0</span></div>
+          <div class="chip">Mạng: <span id="lives">3</span></div>
+        </div>
+        <div class="small">Thời gian mỗi câu: <span id="timeLimit">12</span>s</div>
+      </div>
+    </section>
+
+    <section class="play-area hidden" id="playArea">
+      <div class="question" id="questionText">—</div>
+
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback"></div>
+      <button id="pause-btn" class="pause-btn">⏸ Tạm dừng</button>
+
+      <div class="footer">
+        <div class="small">Câu <span id="currentQ">0</span>/<span id="totalQ">0</span></div>
+        <div class="meta">
+          <div class="small">Thời gian:</div>
+          <div class="chip" id="timer">0s</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="endScreen" class="hidden" style="margin-top:12px;text-align:center">
+      <h2>Kết thúc!</h2>
+      <p class="small">Điểm của bé: <strong id="finalScore">0</strong></p>
+      <button id="playAgainBtn">Chơi lại</button>
+    </section>
+
+  </div>
+  </div>
+
+  <script>
+    // Game logic
+    const startBtn = document.getElementById('startBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const answersEl = document.getElementById('answers');
+    const questionText = document.getElementById('questionText');
+    const scoreEl = document.getElementById('score');
+    const livesEl = document.getElementById('lives');
+    const feedbackEl = document.getElementById('feedback');
+    const timerEl = document.getElementById('timer');
+    const playArea = document.getElementById('playArea');
+    const endScreen = document.getElementById('endScreen');
+    const finalScore = document.getElementById('finalScore');
+    const playAgainBtn = document.getElementById('playAgainBtn');
+    const currentQ = document.getElementById('currentQ');
+    const totalQ = document.getElementById('totalQ');
+    const numQInput = document.getElementById('numQ');
+    const quickQs = document.querySelectorAll('[data-qs]');
+    const homeBtn = document.getElementById('homeBtn');
+    const pauseBtn = document.getElementById('pause-btn'); // Lấy nút tạm dừng
+
+    let score = 0; let lives = 3; let questionCount = 0; let totalQuestions = 10; let op = '+'; let level = 'easy';
+    let timerId = null; let timeLeft = 12; let questionIndex = 0;
+    let isPaused = false; // Biến trạng thái tạm dừng
+
+    // Audio functions
+    let audioCtx = null;
+    let correctSound = null; // Biến lưu trữ đối tượng âm thanh từ file MP3
+let winSound = null; // Biến lưu trữ âm thanh chiến thắng
+    function ensureAudio(){
+        if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+        if(audioCtx.state==='suspended'){ audioCtx.resume(); }
+        // Khởi tạo đối tượng âm thanh sau thao tác của người dùng
+        if(!correctSound){
+            correctSound = new Audio('audio/tieng_ting_mp3-www_tiengdong_com.mp3');
+            correctSound.volume = 0.3;
+        }
+        if(!winSound){
+            winSound = new Audio('audio/hieu_ung_am_thanh_chien_thang-www_tiengdong_com.mp3');
+            winSound.volume = 0.5;
+        }
+    }
+
+    function playTone(frequency, duration, type, volume) {
+        ensureAudio();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.frequency.value = frequency;
+        oscillator.type = type;
+        gainNode.gain.value = volume;
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + duration);
+    }
+
+    function playCorrect(){
+            // Phát âm thanh từ file MP3 với cơ chế dự phòng
+            if(correctSound){
+                try{
+                    correctSound.currentTime = 0; // Reset âm thanh để phát lại nhiều lần
+                    correctSound.play();
+                    return;
+                }catch(error){
+                    console.log('Lỗi khi phát âm thanh MP3:', error);
+                }
+            }
+            // Dự phòng: Phát âm thanh gốc nếu MP3 không hoạt động
+            playTone(1000, 0.05, 'sine', 0.3);
+        }
+
+        function playWinSound(){
+            if(winSound){
+                try{
+                    winSound.currentTime = 0;
+                    winSound.play();
+                    return;
+                }catch(error){
+                    console.log('Lỗi khi phát âm thanh chiến thắng MP3:', error);
+                }
+            }
+            playTone(1300, 0.1, 'sine', 0.4); playTone(1500, 0.1, 'sine', 0.4, 0.1);
+        }
+    function playIncorrect(){ playTone(200, 0.2, 'triangle', 0.3); }
+    function playStart(){ playTone(440, 0.05, 'square', 0.2); }
+
+    function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+
+    function getRangeByLevel(lvl){
+      if(lvl==='easy') return [0,10];
+      if(lvl==='medium') return [0,20];
+      return [0,50];
+    }
+
+    function makeQuestion(){
+      const [min,max]=getRangeByLevel(level);
+      let a=randInt(min,max); let b=randInt(min,max);
+      let useOp = op;
+      if(op==='mix'){
+        const ops=['+','-','*','/']; useOp = ops[randInt(0,ops.length-1)];
+      }
+      if(useOp==='-' && a<b) [a,b]=[b,a];
+      if(useOp==='/'){
+        if(b===0) b=randInt(1,Math.max(1,Math.floor((max-min)/2)+1));
+        // make division exact for kids: a = b * c
+        const c = randInt(1, Math.max(1, Math.floor(max/Math.max(1,b))));
+        a = b * c;
+      }
+      let correct;
+      switch(useOp){
+        case '+': correct = a + b; break;
+        case '-': correct = a - b; break;
+        case '*': correct = a * b; break;
+        case '/': correct = Math.floor(a / b); break;
+      }
+      return {a,b,op:useOp,correct};
+    }
+
+    function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+
+    function showQuestion(){
+      clearInterval(timerId);
+      if(questionIndex>=totalQuestions || lives<=0){endGame();return}
+      questionIndex++;
+      currentQ.textContent = questionIndex;
+      const q = makeQuestion();
+      questionText.textContent = `${q.a} ${q.op} ${q.b} = ?`;
+      // make answer options
+      const opts = new Set();
+      opts.add(q.correct);
+      while(opts.size<4){
+        let delta = randInt(1, Math.max(2, Math.floor(Math.abs(q.correct)||1)+3));
+        const sign = Math.random()<0.5 ? -1 : 1;
+        opts.add(q.correct + sign*delta);
+      }
+      const arr = shuffle(Array.from(opts));
+      answersEl.innerHTML = '';
+      arr.forEach(val=>{
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.textContent = val;
+        btn.onclick = ()=>selectAnswer(val, q.correct);
+        answersEl.appendChild(btn);
+      });
+
+      // Set timeLeft for the new question
+      timeLeft = Math.max(5, Math.floor(12 - (level==='easy'?0: level==='medium'?2:4)));
+
+      startTimer();
+    }
+
+    function startTimer() {
+      clearInterval(timerId);
+      timerEl.textContent = timeLeft + 's';
+      timerId = setInterval(()=>{
+        if (isPaused) return; // Don't update timer if paused
+        timeLeft--;
+        timerEl.textContent = timeLeft + 's';
+        if(timeLeft<=0){
+          clearInterval(timerId);
+          wrongAnswer('Hết giờ!');
+        }
+      },1000);
+    }
+
+    function selectAnswer(val, correct){
+      clearInterval(timerId);
+      if(val === correct){
+        score += 10;
+        scoreEl.textContent = score;
+        feedbackEl.textContent = 'Đúng +10 🎉';
+        feedbackEl.style.color = 'var(--good)';
+        playCorrect();
+        const rect = feedbackEl.getBoundingClientRect();
+        triggerFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      } else {
+        wrongAnswer('Sai rồi 😕');
+      }
+      setTimeout(()=>{feedbackEl.textContent=''; showQuestion();},700);
+    }
+
+    function wrongAnswer(msg){
+      lives -= 1; livesEl.textContent = lives;
+      feedbackEl.textContent = msg + ' -1 mạng';
+      feedbackEl.style.color = 'var(--bad)';
+      playIncorrect();
+      if(lives<=0){ endGame(); return }
+      setTimeout(()=>{feedbackEl.textContent='';},600);
+    }
+
+    function endGame(){
+      clearInterval(timerId);
+      if(questionIndex >= totalQuestions && lives > 0) {
+        playWinSound();
+      }
+      playArea.classList.add('hidden');
+      endScreen.classList.remove('hidden');
+      finalScore.textContent = score;
+    }
+
+    startBtn.onclick = ()=>{
+      ensureAudio(); // Đảm bảo AudioContext được kích hoạt khi người dùng tương tác
+      // read options
+      op = document.getElementById('opSelect').value;
+      level = document.getElementById('levelSelect').value;
+      totalQuestions = parseInt(numQInput.value) || 10;
+      // reset
+      score = 0; lives = 3; questionIndex = 0;
+      scoreEl.textContent = score; livesEl.textContent = lives; totalQ.textContent = totalQuestions; currentQ.textContent = 0;
+      playArea.classList.remove('hidden'); endScreen.classList.add('hidden');
+      playStart();
+      showQuestion();
+    }
+
+    resetBtn.onclick = ()=>{
+      score = 0; lives = 3; questionIndex = 0; scoreEl.textContent = score; livesEl.textContent = lives; currentQ.textContent = 0; questionText.textContent = '—'; answersEl.innerHTML=''; feedbackEl.textContent=''; playArea.classList.add('hidden'); endScreen.classList.add('hidden');
+    }
+
+    playAgainBtn.onclick = ()=>{ startBtn.click(); }
+    homeBtn.onclick = ()=>{ window.location.href = 'Muc_game.html'; }
+
+    pauseBtn.onclick = togglePause;
+
+    function togglePause() {
+      isPaused = !isPaused;
+      if (isPaused) {
+        clearInterval(timerId);
+        pauseBtn.textContent = '▶ Tiếp tục';
+        // Disable answer buttons
+        Array.from(answersEl.children).forEach(btn => btn.disabled = true);
+      } else {
+        pauseBtn.textContent = '⏸ Tạm dừng';
+        // Enable answer buttons
+        Array.from(answersEl.children).forEach(btn => btn.disabled = false);
+        // Restart timer if game is active
+        if (questionIndex <= totalQuestions && lives > 0) {
+          startTimer();
+        }
+      }
+    }
+
+    // small keyboard support: 1-4 select
+    window.addEventListener('keydown', (e)=>{
+      if(playArea.classList.contains('hidden')) return;
+      const n = parseInt(e.key);
+      if(n>=1 && n<=4){
+        const btn = answersEl.children[n-1]; if(btn) btn.click();
+      }
+    });
+
+    quickQs.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        numQInput.value = btn.dataset.qs;
+        quickQs.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    numQInput.addEventListener('input', ()=>{
+      quickQs.forEach(b=>{
+        b.classList.toggle('active', parseInt(numQInput.value)===parseInt(b.dataset.qs));
+      });
+    });
+
+    function triggerFireworks(x, y) {
+      const container = document.getElementById('fireworkContainer');
+      const colors = ['#FFD700', '#FF6347', '#ADFF2F', '#1E90FF', '#FF1493']; // Gold, Tomato, GreenYellow, DodgerBlue, DeepPink
+
+      for (let i = 0; i < 25; i++) { // Create 25 particles
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        firework.style.left = `${x}px`;
+        firework.style.top = `${y}px`;
+        container.appendChild(firework);
+
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = Math.random() * 50 + 70; // 70 to 120
+        const translateX = Math.cos(angle) * velocity;
+        const translateY = Math.sin(angle) * velocity - 50; // Upwards bias
+
+        firework.animate([
+          { transform: `translate(0, 0) scale(0)`, opacity: 1 },
+          { transform: `translate(${translateX}px, ${translateY}px) scale(1.5)`, opacity: 0 }
+        ], {
+          duration: 800,
+          easing: 'ease-out',
+          fill: 'forwards'
+        });
+
+        firework.onanimationend = () => {
+          firework.remove();
+        };
+      }
+    }
+  </script>
+</body>
+</html>
